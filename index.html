@@ -282,18 +282,27 @@
   .style-photo{
     width:100%;
     aspect-ratio:3/4;
-    border:1.5px dashed var(--sage);
+    border:1.5px solid var(--line);
     border-radius:14px;
     background:var(--sage-pale);
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:6px;
-    font-size:22px;
+    gap:10px;
+    padding:12px;
   }
-  .style-photo span{
-    font-size:10.5px;
+  .style-emoji{font-size:32px;}
+  .glam-meter{display:flex; gap:5px;}
+  .glam-meter .dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--line);
+  }
+  .glam-meter .dot.filled{background:var(--rose-deep);}
+  .glam-text{
+    font-size:10px;
     font-weight:600;
     color:var(--ink-soft);
     text-align:center;
@@ -700,19 +709,55 @@
       <p class="style-note">A peek at each look, pulled from Pinterest or past looks, just to give you an idea before we shop together.</p>
       <div class="style-grid">
         <div class="style-card">
-          <div class="style-photo">📷<span>your photo here</span></div>
+          <div class="style-photo">
+            <span class="style-emoji">🌿</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Barely-there</span>
+          </div>
           <span class="style-label">Natural</span>
         </div>
         <div class="style-card">
-          <div class="style-photo">📷<span>your photo here</span></div>
+          <div class="style-photo">
+            <span class="style-emoji">💋</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Polished</span>
+          </div>
           <span class="style-label">Classic</span>
         </div>
         <div class="style-card">
-          <div class="style-photo">📷<span>your photo here</span></div>
+          <div class="style-photo">
+            <span class="style-emoji">💄</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Bold & full</span>
+          </div>
           <span class="style-label">Glam</span>
         </div>
         <div class="style-card">
-          <div class="style-photo">📷<span>your photo here</span></div>
+          <div class="style-photo">
+            <span class="style-emoji">🎨</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+            </div>
+            <span class="glam-text">Artistic, unexpected</span>
+          </div>
           <span class="style-label">Editorial</span>
         </div>
       </div>
