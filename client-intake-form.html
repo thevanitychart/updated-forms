@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanity Chart: Consultation Intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Petit+Formal+Script&family=Quicksand:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FDF2F6;
+    --card: #FFFFFF;
+    --ink: #4A2E3A;
+    --ink-soft: #A67486;
+    --rose: #F3A9C0;
+    --rose-deep: #E0759B;
+    --sage: #C9A3D6;
+    --sage-pale: #F5E9F7;
+    --line: #F3D9E4;
+    --tag-bg: #FCE9F0;
+    --gold: #E8B96B;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 8% 4%, #FBE4EE 0%, transparent 38%),
+      radial-gradient(circle at 95% 12%, #F1E4F7 0%, transparent 40%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    padding:48px 20px 80px;
+  }
+  .sheet{
+    max-width:680px;
+    margin:0 auto;
+  }
+  .chart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:2px dashed var(--rose);
+    padding-bottom:16px;
+    margin-bottom:6px;
+  }
+  .flourish{
+    font-family:'Petit Formal Script', cursive;
+    font-size:15px;
+    color:var(--rose-deep);
+    display:block;
+    margin-bottom:-4px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .brand span{
+    font-style:italic;
+    font-weight:500;
+    color:var(--rose-deep);
+  }
+  .chart-id{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:right;
+    line-height:1.5;
+  }
+  .subhead{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin:12px 0 18px;
+  }
+  .reassure{
+    background:var(--sage-pale);
+    border:1.5px dashed var(--sage);
+    border-radius:14px;
+    padding:16px 20px;
+    margin-bottom:30px;
+  }
+  .intro{
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:20px 22px;
+    margin-bottom:16px;
+    box-shadow:0 6px 20px -14px rgba(224,117,155,0.3);
+  }
+  .intro p{
+    margin:0 0 10px;
+    font-size:13.5px;
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .intro p:last-child{margin-bottom:0;}
+  .intro b{color:var(--rose-deep);}
+  .welcome-line{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:15px;
+    color:var(--rose-deep);
+  }
+  .nurse-blurb{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:14px;
+    color:var(--rose-deep);
+    margin:0 0 14px;
+    line-height:1.5;
+  }
+  .reassure p{
+    margin:0 0 8px;
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.55;
+  }
+  .reassure p:last-child{margin-bottom:0;}
+  .reassure b{color:var(--rose-deep);}
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:28px 28px 26px;
+    margin-bottom:20px;
+    position:relative;
+    box-shadow:0 6px 20px -12px rgba(224,117,155,0.25);
+  }
+  .section::before{
+    content:attr(data-tab);
+    position:absolute;
+    top:-12px;
+    left:22px;
+    background:var(--sage);
+    color:#fff;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 14px;
+    border-radius:20px;
+  }
+  .section h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:20px;
+    color:var(--rose-deep);
+    margin:8px 0 20px;
+  }
+  .row{margin-bottom:18px;}
+  .row:last-child{margin-bottom:0;}
+  label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:7px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  input[type="text"], input[type="email"], input[type="tel"], textarea{
+    width:100%;
+    border:1.5px solid var(--line);
+    background:#FFFBFC;
+    border-radius:12px;
+    padding:11px 14px;
+    font-family:'Quicksand', sans-serif;
+    font-weight:500;
+    font-size:14.5px;
+    color:var(--ink);
+  }
+  input:focus, textarea:focus{
+    outline:2px solid var(--rose);
+    outline-offset:1px;
+    background:#fff;
+  }
+  textarea{resize:vertical; min-height:60px;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:520px){.two-col{grid-template-columns:1fr;}}
+  .choices{display:flex; flex-wrap:wrap; gap:9px;}
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--tag-bg);
+    border-radius:20px;
+    padding:8px 16px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    user-select:none;
+    transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--rose); transform:translateY(-1px);}
+  .chip.active{
+    background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    border-color:var(--rose-deep);
+    color:#fff;
+    box-shadow:0 4px 10px -4px rgba(224,117,155,0.6);
+  }
+  .radio-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .session-cards{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .session-card{
+    border:1.5px solid var(--line);
+    background:var(--tag-bg);
+    border-radius:16px;
+    padding:16px 18px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .session-card:hover{border-color:var(--rose); transform:translateY(-1px);}
+  .session-card.active{
+    background:linear-gradient(135deg, #FFF 0%, var(--tag-bg) 100%);
+    border-color:var(--rose-deep);
+    box-shadow:0 6px 16px -8px rgba(224,117,155,0.5);
+  }
+  .session-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:4px;
+  }
+  .session-name{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+  .session-card.active .session-name{color:var(--rose-deep);}
+  .session-price{
+    font-weight:700;
+    font-size:15px;
+    color:var(--rose-deep);
+    white-space:nowrap;
+  }
+  .session-price .per{
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .session-time{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:var(--sage);
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+  }
+  .session-def{
+    margin:0;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  .style-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:-2px 0 12px;
+  }
+  .style-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:12px;
+  }
+  @media(max-width:520px){.style-grid{grid-template-columns:repeat(2, 1fr);}}
+  .style-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
+  .style-photo{
+    width:100%;
+    aspect-ratio:3/4;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    background:var(--sage-pale);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:12px;
+  }
+  .style-emoji{font-size:32px;}
+  .glam-meter{display:flex; gap:5px;}
+  .glam-meter .dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--line);
+  }
+  .glam-meter .dot.filled{background:var(--rose-deep);}
+  .glam-text{
+    font-size:10px;
+    font-weight:600;
+    color:var(--ink-soft);
+    text-align:center;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .style-label{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:14px;
+    color:var(--rose-deep);
+  }
+  .file-input{
+    width:100%;
+    border:1.5px dashed var(--sage);
+    border-radius:14px;
+    background:var(--sage-pale);
+    padding:16px;
+    font-family:'Quicksand', sans-serif;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .file-input::file-selector-button{
+    background:var(--rose-deep);
+    color:#fff;
+    border:none;
+    border-radius:20px;
+    padding:8px 16px;
+    font-size:12.5px;
+    font-weight:700;
+    font-family:'Quicksand', sans-serif;
+    cursor:pointer;
+    margin-right:12px;
+  }
+  .upload-note{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin:8px 0 0;
+    line-height:1.5;
+  }
+  .photo-drop{
+    border:1.5px dashed var(--sage);
+    border-radius:14px;
+    padding:22px;
+    text-align:center;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink-soft);
+    background:var(--sage-pale);
+  }
+  .photo-drop b{color:var(--ink);}
+  .actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:30px;
+  }
+  .send{
+    background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    color:#fff;
+    border:none;
+    border-radius:24px;
+    padding:14px 30px;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+    box-shadow:0 8px 18px -8px rgba(224,117,155,0.7);
+  }
+  .send:hover{filter:brightness(1.06); transform:translateY(-1px);}
+  .hint{font-size:12px; color:var(--ink-soft);}
+  .summary{
+    display:none;
+    background:var(--sage-pale);
+    border:1.5px solid var(--sage);
+    border-radius:16px;
+    padding:20px 22px;
+    margin-top:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    white-space:pre-wrap;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .summary.show{display:block;}
+  .copy-btn{
+    margin-top:12px;
+    background:#fff;
+    border:1.5px solid var(--rose-deep);
+    color:var(--rose-deep);
+    border-radius:20px;
+    padding:9px 18px;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+  }
+  .copy-btn:hover{background:var(--tag-bg);}
+  .privacy-note{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin:8px 0 0;
+  }
+  .consent-row{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    margin-top:12px;
+    cursor:pointer;
+  }
+  .consent-row input[type="checkbox"]{
+    margin-top:2px;
+    width:15px;
+    height:15px;
+    accent-color:var(--rose-deep);
+    flex-shrink:0;
+  }
+  .consent-row span{
+    font-size:12.5px;
+    color:var(--ink);
+    font-weight:500;
+    line-height:1.4;
+  }
+  .consent-row span i{
+    font-style:italic;
+    color:var(--ink-soft);
+    font-weight:400;
+  }
+  .policy-note{
+    font-size:12px;
+    color:var(--ink-soft);
+    background:var(--tag-bg);
+    border-radius:12px;
+    padding:12px 16px;
+    margin:22px 0 0;
+  }
+  .policies{
+    background:var(--sage-pale);
+    border:1.5px solid var(--sage);
+    border-radius:18px;
+    padding:24px 26px;
+    margin-bottom:20px;
+  }
+  .policies h3{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:17px;
+    color:var(--rose-deep);
+    margin:0 0 14px;
+  }
+  .policies ul{
+    margin:0;
+    padding-left:18px;
+  }
+  .policies li{
+    font-size:12.5px;
+    color:var(--ink);
+    line-height:1.6;
+    margin-bottom:8px;
+  }
+  .policies li:last-child{margin-bottom:0;}
+  .policies li b{color:var(--rose-deep);}
+  .booking-cta{
+    text-align:center;
+    background:linear-gradient(135deg, var(--tag-bg) 0%, var(--sage-pale) 100%);
+    border:1.5px solid var(--rose);
+    border-radius:18px;
+    padding:22px 24px;
+    margin-bottom:20px;
+  }
+  .booking-cta p{
+    margin:0 0 14px;
+    font-size:13.5px;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .book-btn{
+    background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    color:#fff;
+    border:none;
+    border-radius:24px;
+    padding:14px 32px;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+    box-shadow:0 8px 18px -8px rgba(224,117,155,0.7);
+  }
+  .book-btn:hover{filter:brightness(1.06); transform:translateY(-1px);}
+  .closing-note{
+    text-align:center;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--rose-deep);
+    margin:34px 0 0;
+    line-height:1.6;
+  }
+  .contact-footer{
+    text-align:center;
+    border-top:2px dashed var(--rose);
+    padding-top:20px;
+    margin-top:36px;
+  }
+  .contact-label{
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--sage);
+    margin-bottom:10px;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink);
+  }
+  .map-row{
+    display:flex;
+    gap:10px;
+  }
+  .map-row input{flex:1;}
+  .map-btn{
+    flex-shrink:0;
+    background:var(--sage);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    padding:0 16px;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+    white-space:nowrap;
+  }
+  .map-btn:hover{filter:brightness(1.08);}
+  @media(max-width:480px){
+    .map-row{flex-direction:column;}
+    .map-btn{padding:10px;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="chart-header">
+    <div>
+      <span class="flourish">let's find your glow ♡</span>
+      <div class="brand">The Vanity <span>Chart</span></div>
+    </div>
+    <div class="chart-id">CONSULT INTAKE<br>Chart #____</div>
+  </div>
+  <div class="subhead">Fill this out before we meet, the more I know going in, the more glowy time we get to spend together!</div>
+  <div class="intro">
+    <p>Hi, I'm Chi 🩷 I'm a practicing RN, currently pursuing my Doctor of Nursing Practice, based in the Miami, Florida metropolitan area. I've always had a love for makeup and skincare, and I bring a clinical eye to beauty, helping people navigate an overwhelming industry with real product knowledge instead of guesswork or sales pressure.</p>
+    <p class="welcome-line">Welcome to The Vanity Chart, your personal makeup and skincare chart.</p>
+    <p>I offer three ways to work together, each suited to a different need:</p>
+    <p><b>Virtual Consult</b>, a video or text-based session where we talk through your skin, goals, and current routine, and I send you a personalized product list afterward. Best if you want a plan without leaving home.</p>
+    <p><b>In-Person Shopping</b>, where I meet you at Sephora, Ulta, or your preferred retailer to test products together in real time. Best if you want hands-on guidance and to walk out with everything decided.</p>
+    <p><b>Declutter & Edit</b>, where we sort through what's already in your vanity, deciding what to keep, toss, or replace. Best if you already own a lot of products and just need an honest edit.</p>
+    <p>Across all three: no pressure to buy anything you don't love, no judgment on your current routine, just honest advice from someone with a clinical background who genuinely loves this stuff.</p>
+  </div>
+  <div class="reassure">
+    <p><b>No wrong answers here.</b> This isn't a test or a critique of your current routine, it's just so I can get to know your skin, your style, and what you're hoping for. Come as you are.</p>
+    <p><b>What to expect:</b> We'll chat, I'll ask a few questions, and there's zero pressure to buy anything you don't love. This is your session.</p>
+  </div>
+
+  <div class="section" data-tab="Basics">
+    <h2>Basic info</h2>
+    <div class="row two-col">
+      <div><label>Name</label><input type="text" id="name"></div>
+      <div><label>Preferred contact</label><input type="text" id="contact" placeholder="email or phone"></div>
+    </div>
+    <div class="row two-col">
+      <div><label>Preferred name (if different)</label><input type="text" id="preferredName" placeholder="what should I call you?"></div>
+      <div><label>Pronouns (optional)</label><input type="text" id="pronouns" placeholder="she/her, he/him, they/them..."></div>
+    </div>
+    <div class="row">
+      <label>Session type</label>
+      <div class="session-cards" id="sessionType">
+        <div class="session-card" data-value="Virtual Consult: $50 / 30 min">
+          <div class="session-top">
+            <span class="session-name">Virtual Consult</span>
+            <span class="session-price">$50</span>
+          </div>
+          <span class="session-time">30 minutes · via Zoom or text</span>
+          <p class="session-def">A focused video call (or text-based, if you prefer) where we go over your skin, goals, and current routine, and I send you a personalized product list afterward.</p>
+        </div>
+        <div class="session-card" data-value="In-Person Shopping: $100/hr">
+          <div class="session-top">
+            <span class="session-name">In-Person Shopping</span>
+            <span class="session-price">$100<span class="per">/hr</span></span>
+          </div>
+          <span class="session-time">Sephora, Ulta, or your preferred beauty retailer</span>
+          <p class="session-def">We meet in-store, test products together, and you leave with a finalized kit and a written how-to guide.</p>
+        </div>
+        <div class="session-card" data-value="Declutter & Edit: $75/hr">
+          <div class="session-top">
+            <span class="session-name">Declutter &amp; Edit</span>
+            <span class="session-price">$75<span class="per">/hr</span></span>
+          </div>
+          <span class="session-time">Virtual or in-home</span>
+          <p class="session-def">We sort through your current vanity together, deciding what to keep, toss, or replace, and I put together a shopping list for any gaps.</p>
+        </div>
+      </div>
+    </div>
+    <p class="nurse-blurb">To my fellow nursing gals and guys 🩷 you work so hard taking care of everyone else, so here's a little something back from me to you.</p>
+    <div class="row">
+      <label class="consent-row">
+        <input type="checkbox" id="nurseDiscount">
+        <span>I'm a nurse (RN, LPN, NP, SRNA, CRNA, etc.): 10% off my first session 🩷 <i>Please bring your badge or ID to your appointment as proof.</i></span>
+      </label>
+    </div>
+    <div class="row">
+      <label class="consent-row">
+        <input type="checkbox" id="nursingStudentDiscount">
+        <span>I'm a nursing student: 20% off my first session 🩷 <i>Please bring your student ID to your appointment as proof.</i></span>
+      </label>
+    </div>
+    <div class="row">
+      <label>Budget for products</label>
+      <div class="choices" id="budget">
+        <div class="chip">Under $50</div>
+        <div class="chip">$50–150</div>
+        <div class="chip">$150–300</div>
+        <div class="chip">$300+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" data-tab="Skin Profile">
+    <h2>Skin profile</h2>
+    <div class="row">
+      <label>Skin type</label>
+      <div class="choices" id="skinType">
+        <div class="chip">Oily</div>
+        <div class="chip">Dry</div>
+        <div class="chip">Combination</div>
+        <div class="chip">Normal</div>
+        <div class="chip">Not sure</div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Concerns (select all that apply)</label>
+      <div class="choices" id="concerns">
+        <div class="chip">Acne-prone</div>
+        <div class="chip">Sensitive / reactive</div>
+        <div class="chip">Redness</div>
+        <div class="chip">Hyperpigmentation</div>
+        <div class="chip">Fine lines</div>
+        <div class="chip">Large pores</div>
+        <div class="chip">Dullness</div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Allergies or ingredients to avoid</label>
+      <textarea id="allergies" placeholder="e.g. fragrance, fine ingredients, past reactions"></textarea>
+    </div>
+    <div class="row">
+      <label>Current skincare routine (optional)</label>
+      <textarea id="skincare"></textarea>
+    </div>
+  </div>
+
+  <div class="section" data-tab="Goals">
+    <h2>Makeup habits &amp; goals</h2>
+    <div class="row">
+      <label>Current routine</label>
+      <textarea id="routine" placeholder="e.g. just mascara, full face daily, special occasions only"></textarea>
+    </div>
+    <div class="row">
+      <label>What's not working right now?</label>
+      <textarea id="painpoint"></textarea>
+    </div>
+    <div class="row">
+      <label>Shopping for</label>
+      <div class="choices" id="occasion">
+        <div class="chip">Everyday</div>
+        <div class="chip">Work</div>
+        <div class="chip">Events</div>
+        <div class="chip">Special occasion</div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Preferred look</label>
+      <div class="choices" id="look">
+        <div class="chip">Natural / no-makeup</div>
+        <div class="chip">Classic</div>
+        <div class="chip">Glam</div>
+        <div class="chip">Editorial</div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Style inspiration</label>
+      <p class="style-note">A peek at each look, pulled from Pinterest or past looks, just to give you an idea before we shop together.</p>
+      <div class="style-grid">
+        <div class="style-card">
+          <div class="style-photo">
+            <span class="style-emoji">🌿</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Barely-there</span>
+          </div>
+          <span class="style-label">Natural</span>
+        </div>
+        <div class="style-card">
+          <div class="style-photo">
+            <span class="style-emoji">💋</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Polished</span>
+          </div>
+          <span class="style-label">Classic</span>
+        </div>
+        <div class="style-card">
+          <div class="style-photo">
+            <span class="style-emoji">💄</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot"></span>
+            </div>
+            <span class="glam-text">Bold & full</span>
+          </div>
+          <span class="style-label">Glam</span>
+        </div>
+        <div class="style-card">
+          <div class="style-photo">
+            <span class="style-emoji">🎨</span>
+            <div class="glam-meter">
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+              <span class="dot filled"></span>
+            </div>
+            <span class="glam-text">Artistic, unexpected</span>
+          </div>
+          <span class="style-label">Editorial</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Got your own inspo pics?</label>
+      <div class="photo-drop">📌 <b>Text or email them to me directly:</b> 786-539-5365 or thevanitychart@gmail.com. Screenshots from Pinterest, Instagram, wherever, this helps me see exactly what you're picturing.</div>
+    </div>
+    <div class="row">
+      <label>Brands you love or want to avoid</label>
+      <textarea id="brands"></textarea>
+    </div>
+  </div>
+
+  <div class="section" data-tab="Logistics">
+    <h2>Logistics</h2>
+    <div class="row">
+      <label>Photos (2-3, natural light, bare face)</label>
+      <div class="photo-drop">📎 <b>Attach or email separately:</b> front-facing and profile, no makeup, daylight if possible.</div>
+      <p class="privacy-note">🔒 Your photos and info are kept private and only used for your consult, never shared or posted without your permission.</p>
+      <label class="consent-row">
+        <input type="checkbox" id="photoConsent">
+        <span>It's okay to use my before/after photos on Instagram or in your portfolio (optional, uncheck anytime)</span>
+      </label>
+    </div>
+    <div class="row">
+      <label>Comfort with in-store testers</label>
+      <div class="choices" id="testerComfort">
+        <div class="chip">Totally fine with testers</div>
+        <div class="chip">Prefer sanitized/single-use only</div>
+        <div class="chip">Not doing in-person, N/A</div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Accessibility or comfort needs (optional)</label>
+      <textarea id="accessibility" placeholder="e.g. seating needs, sensitivity to bright lights or fragrance, mobility considerations"></textarea>
+    </div>
+    <div class="row">
+      <label>Availability for session</label>
+      <input type="text" id="availability" placeholder="days/times that work">
+    </div>
+    <div class="row">
+      <label>Preferred store or meeting location (for in-person sessions)</label>
+      <div class="map-row">
+        <input type="text" id="location" placeholder="e.g. Sephora, Merrick Park, Coral Gables">
+        <button type="button" class="map-btn" onclick="openMap()">📍 View on Maps</button>
+      </div>
+    </div>
+    <div class="row">
+      <label>Anything else I should know?</label>
+      <textarea id="notes"></textarea>
+    </div>
+  </div>
+
+  <div class="policies">
+    <h3>A few housekeeping notes 🩷</h3>
+    <ul>
+      <li><b>Rescheduling:</b> Life happens! Just give me at least 24 hours' notice and we'll find a new time, no fee, no worries.</li>
+      <li><b>Late cancellations:</b> Canceling with less than 24 hours' notice may include a 50% cancellation fee.</li>
+      <li><b>No-shows:</b> If you don't show up or reach out at all, the full session fee applies.</li>
+      <li><b>Running late:</b> Please give me a heads-up if you're running behind. Sessions may need to be shortened or rescheduled to respect the time of clients after you.</li>
+      <li><b>Patch testing:</b> I always recommend patch-testing any new product on a small area of skin 24-48 hours before full use. I'm not liable for allergic reactions to recommended products, everyone's skin is different.</li>
+      <li><b>Payment:</b> I accept Venmo, Zelle, Cash App, and card.</li>
+      <li><b>Service area:</b> I'm based in the Miami, Florida metropolitan area. In-person sessions are available within that area; let's chat if you're outside it.</li>
+      <li><b>Age policy:</b> Clients must be 18 or older, or accompanied by a parent/guardian if under 18.</li>
+    </ul>
+  </div>
+
+  <div class="booking-cta">
+    <p>Ready to lock in a time? Fill this out first, then grab a spot on my calendar.</p>
+    <button type="button" class="book-btn" onclick="openCalendly()">📅 Book your session</button>
+  </div>
+
+  <div class="actions">
+    <button class="send" onclick="buildSummary()">Compile chart</button>
+    <span class="hint">Compiles a summary below and emails it to me automatically.</span>
+  </div>
+
+  <div class="summary" id="summaryBox"></div>
+  <button class="copy-btn" id="copyBtn" style="display:none" onclick="copySummary()">Copy to clipboard</button>
+
+  <div class="contact-footer">
+    <span class="contact-label">Questions? Reach out anytime</span>
+    <div class="contact-links">
+      <span>📧 thevanitychart@gmail.com</span>
+      <span>📱 786-539-5365</span>
+      <span>📸 @thevanitychart</span>
+    </div>
+  </div>
+
+  <p class="closing-note">Thank you so much for taking the time to fill this out. I can't wait to meet you and help you glow. Hope to see you there! 🩷</p>
+
+</div>
+
+<script>
+  document.querySelectorAll('.choices').forEach(group => {
+    group.querySelectorAll('.chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('active'));
+    });
+  });
+
+  document.querySelectorAll('.session-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.session-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+
+  function getActive(id){
+    return Array.from(document.querySelectorAll('#'+id+' .chip.active')).map(c => c.textContent).join(', ') || 'N/A';
+  }
+  function getSelectedSession(){
+    const el = document.querySelector('#sessionType .session-card.active');
+    return el ? el.dataset.value : 'N/A';
+  }
+  function getVal(id){
+    return document.getElementById(id).value.trim() || 'N/A';
+  }
+
+  function openMap(){
+    const loc = document.getElementById('location').value.trim();
+    if(!loc){ alert('Enter a store or location first!'); return; }
+    window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc), '_blank');
+  }
+
+  // Replace with your real Calendly link, e.g. https://calendly.com/thevanitychart
+  const CALENDLY_LINK = 'https://calendly.com/thevanitychart';
+
+  function openCalendly(){
+    if(CALENDLY_LINK.includes('YOUR_LINK_HERE')){
+      alert('Booking link coming soon! For now, reach out directly to schedule.');
+      return;
+    }
+    window.open(CALENDLY_LINK, '_blank');
+  }
+
+  function buildSummary(){
+    const text =
+`CONSULT INTAKE: ${getVal('name')}
+Preferred name: ${getVal('preferredName')}
+Pronouns: ${getVal('pronouns')}
+Nurse discount (10%, bring ID): ${document.getElementById('nurseDiscount').checked ? 'Yes' : 'No'}
+Nursing student discount (20%, bring ID): ${document.getElementById('nursingStudentDiscount').checked ? 'Yes' : 'No'}
+Contact: ${getVal('contact')}
+Session: ${getSelectedSession()}
+Budget: ${getActive('budget')}
+
+SKIN PROFILE
+Type: ${getActive('skinType')}
+Concerns: ${getActive('concerns')}
+Allergies/avoid: ${getVal('allergies')}
+Current skincare: ${getVal('skincare')}
+
+GOALS
+Current routine: ${getVal('routine')}
+Not working: ${getVal('painpoint')}
+Shopping for: ${getActive('occasion')}
+Preferred look: ${getActive('look')}
+Brands: ${getVal('brands')}
+
+LOGISTICS
+Photo use consent: ${document.getElementById('photoConsent').checked ? 'Yes' : 'No'}
+Tester comfort: ${getActive('testerComfort')}
+Accessibility needs: ${getVal('accessibility')}
+Availability: ${getVal('availability')}
+Preferred location: ${getVal('location')}
+Notes: ${getVal('notes')}`;
+
+    const box = document.getElementById('summaryBox');
+    box.textContent = text;
+    box.classList.add('show');
+    document.getElementById('copyBtn').style.display = 'inline-block';
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+    submitToFormspree(text);
+  }
+
+  // Replace with your real Formspree endpoint, e.g. https://formspree.io/f/abcdwxyz
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeajjjpw';
+
+  function submitToFormspree(summaryText){
+    if(FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) return; // not set up yet, skip silently
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: {'Accept': 'application/json'},
+      body: new URLSearchParams({
+        name: getVal('name'),
+        summary: summaryText
+      })
+    }).catch(() => {}); // local summary still works even if this fails
+  }
+
+  function copySummary(){
+    navigator.clipboard.writeText(document.getElementById('summaryBox').textContent);
+    const btn = document.getElementById('copyBtn');
+    const original = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = original, 1500);
+  }
+</script>
+</body>
+</html>
