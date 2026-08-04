@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanity Chart: Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Petit+Formal+Script&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FDF2F6;
+    --ink: #4A2E3A;
+    --ink-soft: #A67486;
+    --rose: #F3A9C0;
+    --rose-deep: #E0759B;
+    --sage: #C9A3D6;
+    --sage-pale: #F5E9F7;
+    --line: #F3D9E4;
+    --tag-bg: #FCE9F0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 10% 5%, #FBE4EE 0%, transparent 40%),
+      radial-gradient(circle at 90% 15%, #F1E4F7 0%, transparent 42%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    padding:56px 20px 60px;
+    display:flex;
+    justify-content:center;
+  }
+  .wrap{max-width:420px; width:100%; text-align:center;}
+  .badge{
+    width:96px; height:96px;
+    margin:0 auto 18px;
+    border-radius:50%;
+    background:var(--rose-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    color:#fff; font-size:15px;
+    box-shadow:0 10px 24px -10px rgba(224,117,155,0.6);
+  }
+  .flourish{
+    font-family:'Petit Formal Script', cursive;
+    font-size:16px;
+    color:var(--rose-deep);
+    display:block;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:26px;
+    font-weight:600;
+    margin:2px 0 6px;
+  }
+  .brand span{font-style:italic; font-weight:500; color:var(--rose-deep);}
+  .tagline{font-size:13px; color:var(--ink-soft); margin-bottom:32px;}
+  .link-btn{
+    display:block;
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:16px 20px;
+    margin-bottom:14px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:600;
+    font-size:14.5px;
+    box-shadow:0 6px 18px -12px rgba(224,117,155,0.3);
+    transition:all .15s ease;
+  }
+  .link-btn:hover{border-color:var(--rose); transform:translateY(-1px);}
+  .link-btn .sub{
+    display:block;
+    font-weight:500;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+  .link-btn.primary{
+    background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    color:#fff;
+    border:none;
+  }
+  .link-btn.primary .sub{color:#FCE9F0;}
+  .contact-row{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:28px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="badge">Vanity<br>Chart</div>
+  <span class="flourish">let's find your glow</span>
+  <div class="brand">The Vanity <span>Chart</span></div>
+  <div class="tagline">RN-backed makeup &amp; skincare consulting, Miami metro</div>
+
+  <a class="link-btn primary" href="https://calendly.com/thevanitychart" target="_blank">
+    📅 Book your session
+    <span class="sub">Virtual, in-person, or declutter & edit</span>
+  </a>
+
+  <a class="link-btn" href="index.html">
+    📝 Fill out intake form
+    <span class="sub">Start here before your session</span>
+  </a>
+
+  <a class="link-btn" href="consent.html">
+    🩷 Consent &amp; waiver form
+    <span class="sub">Quick, standard paperwork</span>
+  </a>
+
+  <a class="link-btn" href="mailto:thevanitychart@gmail.com">
+    ✉️ Email me directly
+    <span class="sub">thevanitychart@gmail.com</span>
+  </a>
+
+  <div class="contact-row">
+    <span>📱 786-539-5365</span>
+    <span>📸 @thevanitychart</span>
+  </div>
+</div>
+</body>
+</html>

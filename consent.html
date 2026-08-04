@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanity Chart: Client Consent & Waiver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Petit+Formal+Script&family=Quicksand:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FDF2F6;
+    --card: #FFFFFF;
+    --ink: #4A2E3A;
+    --ink-soft: #A67486;
+    --rose: #F3A9C0;
+    --rose-deep: #E0759B;
+    --sage: #C9A3D6;
+    --sage-pale: #F5E9F7;
+    --line: #F3D9E4;
+    --tag-bg: #FCE9F0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 8% 4%, #FBE4EE 0%, transparent 38%),
+      radial-gradient(circle at 95% 12%, #F1E4F7 0%, transparent 40%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Quicksand', sans-serif;
+    padding:48px 20px 80px;
+  }
+  .sheet{max-width:680px; margin:0 auto;}
+  .chart-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-bottom:2px dashed var(--rose);
+    padding-bottom:16px;
+    margin-bottom:6px;
+  }
+  .flourish{
+    font-family:'Petit Formal Script', cursive;
+    font-size:15px;
+    color:var(--rose-deep);
+    display:block;
+    margin-bottom:-4px;
+  }
+  .brand{font-family:'Fraunces', serif; font-size:30px; font-weight:600; letter-spacing:-0.01em;}
+  .brand span{font-style:italic; font-weight:500; color:var(--rose-deep);}
+  .chart-id{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:right;
+    line-height:1.5;
+  }
+  .subhead{font-size:13.5px; color:var(--ink-soft); margin:12px 0 24px;}
+  .section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px 28px;
+    margin-bottom:18px;
+    position:relative;
+    box-shadow:0 6px 20px -12px rgba(224,117,155,0.25);
+  }
+  .section::before{
+    content:attr(data-tab);
+    position:absolute;
+    top:-12px;
+    left:22px;
+    background:var(--sage);
+    color:#fff;
+    font-family:'Quicksand', sans-serif;
+    font-weight:700;
+    font-size:10.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:5px 14px;
+    border-radius:20px;
+  }
+  .section h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:19px;
+    color:var(--rose-deep);
+    margin:6px 0 14px;
+  }
+  .section p{
+    font-size:13.5px;
+    line-height:1.65;
+    margin:0 0 12px;
+    color:var(--ink);
+  }
+  .section p:last-child{margin-bottom:0;}
+  .section ul{margin:0 0 12px; padding-left:20px;}
+  .section li{font-size:13.5px; line-height:1.6; margin-bottom:8px; color:var(--ink);}
+  .section li:last-child{margin-bottom:0;}
+  .row{margin-bottom:16px;}
+  .row:last-child{margin-bottom:0;}
+  label{
+    display:block;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    margin-bottom:7px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  input[type="text"], input[type="date"]{
+    width:100%;
+    border:1.5px solid var(--line);
+    background:#FFFBFC;
+    border-radius:12px;
+    padding:11px 14px;
+    font-family:'Quicksand', sans-serif;
+    font-weight:500;
+    font-size:14.5px;
+    color:var(--ink);
+  }
+  input:focus{outline:2px solid var(--rose); outline-offset:1px; background:#fff;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:520px){.two-col{grid-template-columns:1fr;}}
+  .agree-row{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    background:var(--sage-pale);
+    border:1.5px solid var(--sage);
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:14px;
+    cursor:pointer;
+  }
+  .agree-row input[type="checkbox"]{
+    margin-top:2px;
+    width:17px;
+    height:17px;
+    accent-color:var(--rose-deep);
+    flex-shrink:0;
+  }
+  .agree-row span{font-size:13px; font-weight:600; color:var(--ink); line-height:1.5;}
+  .sig-box{
+    border:1.5px dashed var(--rose);
+    border-radius:14px;
+    padding:20px;
+    background:var(--tag-bg);
+  }
+  .sig-note{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
+  .actions{display:flex; justify-content:space-between; align-items:center; margin-top:26px;}
+  .send{
+    background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+    color:#fff;
+    border:none;
+    border-radius:24px;
+    padding:14px 30px;
+    font-size:14.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+    box-shadow:0 8px 18px -8px rgba(224,117,155,0.7);
+  }
+  .send:hover{filter:brightness(1.06); transform:translateY(-1px);}
+  .send:disabled{opacity:0.45; cursor:not-allowed; box-shadow:none;}
+  .hint{font-size:12px; color:var(--ink-soft);}
+  .summary{
+    display:none;
+    background:var(--sage-pale);
+    border:1.5px solid var(--sage);
+    border-radius:16px;
+    padding:20px 22px;
+    margin-top:18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    white-space:pre-wrap;
+    line-height:1.6;
+    color:var(--ink);
+  }
+  .summary.show{display:block;}
+  .copy-btn{
+    margin-top:12px;
+    background:#fff;
+    border:1.5px solid var(--rose-deep);
+    color:var(--rose-deep);
+    border-radius:20px;
+    padding:9px 18px;
+    font-size:12.5px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Quicksand', sans-serif;
+  }
+  .copy-btn:hover{background:var(--tag-bg);}
+  .contact-footer{
+    text-align:center;
+    border-top:2px dashed var(--rose);
+    padding-top:20px;
+    margin-top:30px;
+  }
+  .contact-label{
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--sage);
+    margin-bottom:10px;
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:13px;
+    font-weight:500;
+    color:var(--ink);
+  }
+  .legal-note{
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:center;
+    margin-top:16px;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="chart-header">
+    <div>
+      <span class="flourish">just a little paperwork ♡</span>
+      <div class="brand">The Vanity <span>Chart</span></div>
+    </div>
+    <div class="chart-id">CONSENT &amp; WAIVER<br>Chart #____</div>
+  </div>
+  <div class="subhead">Quick, painless, and standard for any beauty consultation. Read through, check the boxes, and sign below.</div>
+
+  <div class="section" data-tab="Client Info">
+    <h2>Client information</h2>
+    <div class="row two-col">
+      <div><label>Full legal name</label><input type="text" id="fullName"></div>
+      <div><label>Date</label><input type="date" id="date"></div>
+    </div>
+    <div class="row two-col">
+      <div><label>Email or phone</label><input type="text" id="contact"></div>
+      <div><label>Session type</label><input type="text" id="sessionType" placeholder="Virtual / In-Person / Declutter"></div>
+    </div>
+  </div>
+
+  <div class="section" data-tab="Services">
+    <h2>What this covers</h2>
+    <p>The Vanity Chart provides personalized beauty consulting, shopping guidance, and product recommendations. I am not a licensed esthetician, dermatologist, or cosmetologist, and I do not apply makeup, skincare products, or perform any hands-on treatments during our session. My recommendations are based on my clinical nursing background and personal expertise, but they are not medical advice.</p>
+  </div>
+
+  <div class="section" data-tab="Patch Test">
+    <h2>Patch testing &amp; allergies</h2>
+    <p>Everyone's skin reacts differently to products, even ones marketed as gentle or hypoallergenic. I strongly recommend patch-testing any new product on a small area of skin (like your inner wrist) 24-48 hours before full use, especially if you have known sensitivities, allergies, or reactive skin.</p>
+    <p>I will do my best to avoid recommending ingredients you've flagged as concerns, but I cannot guarantee a product won't cause a reaction, and I am not liable for allergic reactions, irritation, or other adverse effects from products I recommend or that you purchase during our session.</p>
+  </div>
+
+  <div class="section" data-tab="Photos">
+    <h2>Photos &amp; privacy</h2>
+    <p>Any photos you share with me before or during our session are kept private and used only to prepare for and personalize your consultation. They will not be shared, posted, or used for marketing unless you separately opt in on your intake form.</p>
+  </div>
+
+  <div class="section" data-tab="Policies">
+    <h2>Session policies</h2>
+    <ul>
+      <li><b>Rescheduling:</b> 24+ hours notice, no fee.</li>
+      <li><b>Late cancellations:</b> under 24 hours' notice may include a 50% cancellation fee.</li>
+      <li><b>No-shows:</b> full session fee applies.</li>
+      <li><b>Payment:</b> due at time of session via Venmo, Zelle, Cash App, or card.</li>
+    </ul>
+  </div>
+
+  <div class="section" data-tab="Agreement">
+    <h2>Agreement</h2>
+    <label class="agree-row">
+      <input type="checkbox" id="agree1">
+      <span>I understand this is a beauty consulting and shopping service, not a medical, dermatological, or esthetician service.</span>
+    </label>
+    <label class="agree-row">
+      <input type="checkbox" id="agree2">
+      <span>I understand the recommendation to patch-test new products, and I release The Vanity Chart from liability for allergic reactions or skin irritation from recommended products.</span>
+    </label>
+    <label class="agree-row">
+      <input type="checkbox" id="agree3">
+      <span>I have read and agree to the session policies (rescheduling, cancellation, payment).</span>
+    </label>
+
+    <div class="row" style="margin-top:20px;">
+      <label>Digital signature (type your full name)</label>
+      <div class="sig-box">
+        <input type="text" id="signature" placeholder="Type your full name to sign">
+        <p class="sig-note">By typing your name above and checking the boxes, you're providing your consent electronically, just like a signature.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="send" id="submitBtn" onclick="buildSummary()">Sign &amp; compile</button>
+    <span class="hint">Compiles a signed summary below and emails it to me automatically.</span>
+  </div>
+
+  <div class="summary" id="summaryBox"></div>
+  <button class="copy-btn" id="copyBtn" style="display:none" onclick="copySummary()">Copy to clipboard</button>
+
+  <div class="contact-footer">
+    <span class="contact-label">Questions before you sign?</span>
+    <div class="contact-links">
+      <span>📧 thevanitychart@gmail.com</span>
+      <span>📱 786-539-5365</span>
+      <span>📸 @thevanitychart</span>
+    </div>
+  </div>
+
+  <p class="legal-note">This form is a general consent and liability release for a beauty consulting side business. It is not a substitute for a formal legal contract; consider having it reviewed by an attorney before relying on it for full legal protection.</p>
+
+  <p style="text-align:center; margin-top:16px;"><a href="index.html" style="color:var(--rose-deep); font-size:12.5px; font-weight:600;">← Back to Consultation Intake</a></p>
+
+</div>
+
+<script>
+  function getVal(id){
+    return document.getElementById(id).value.trim() || 'N/A';
+  }
+
+  function buildSummary(){
+    const a1 = document.getElementById('agree1').checked;
+    const a2 = document.getElementById('agree2').checked;
+    const a3 = document.getElementById('agree3').checked;
+    const sig = getVal('signature');
+
+    if(!a1 || !a2 || !a3 || sig === 'N/A'){
+      alert('Please check all three boxes and type your signature before submitting.');
+      return;
+    }
+
+    const text =
+`CONSENT & WAIVER: ${getVal('fullName')}
+Date: ${getVal('date')}
+Contact: ${getVal('contact')}
+Session type: ${getVal('sessionType')}
+
+Agreed to service terms: Yes
+Agreed to patch-test / liability release: Yes
+Agreed to session policies: Yes
+
+Signature: ${sig}`;
+
+    const box = document.getElementById('summaryBox');
+    box.textContent = text;
+    box.classList.add('show');
+    document.getElementById('copyBtn').style.display = 'inline-block';
+    box.scrollIntoView({behavior:'smooth', block:'nearest'});
+    submitToFormspree(text);
+  }
+
+  // Replace with your real Formspree endpoint, e.g. https://formspree.io/f/abcdwxyz
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mzepppyw';
+
+  function submitToFormspree(summaryText){
+    if(FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) return; // not set up yet, skip silently
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: {'Accept': 'application/json'},
+      body: new URLSearchParams({
+        name: getVal('fullName'),
+        summary: summaryText
+      })
+    }).catch(() => {});
+  }
+
+  function copySummary(){
+    navigator.clipboard.writeText(document.getElementById('summaryBox').textContent);
+    const btn = document.getElementById('copyBtn');
+    const original = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    setTimeout(() => btn.textContent = original, 1500);
+  }
+</script>
+</body>
+</html>
