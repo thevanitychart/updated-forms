@@ -21,6 +21,62 @@
     --gold: #E8B96B;
   }
   *{box-sizing:border-box;}
+  .progress-track{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:4px;
+    background:var(--line);
+    z-index:1000;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--rose) 0%, var(--rose-deep) 100%);
+    transition:width .1s ease-out;
+  }
+  .sparkle{
+    display:inline-block;
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  .sparkle:nth-child(2){ animation-delay:.5s; }
+  .sparkle:nth-child(3){ animation-delay:1s; }
+  @keyframes twinkle{
+    0%, 100%{ opacity:.35; transform:scale(0.85); }
+    50%{ opacity:1; transform:scale(1.15); }
+  }
+  @keyframes popIn{
+    0%{ transform:scale(0); opacity:0; }
+    60%{ transform:scale(1.2); opacity:1; }
+    100%{ transform:scale(1); opacity:1; }
+  }
+  .session-check{
+    display:none;
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    width:22px; height:22px;
+    border-radius:50%;
+    background:var(--rose-deep);
+    color:#fff;
+    font-size:12px;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 3px 8px -2px rgba(224,117,155,0.6);
+    animation:popIn .3s ease-out;
+  }
+  .session-card.active .session-check{display:flex;}
+  .confetti-piece{
+    position:fixed;
+    top:-20px;
+    z-index:2000;
+    pointer-events:none;
+    border-radius:2px;
+    animation:confettiFall linear forwards;
+  }
+  @keyframes confettiFall{
+    to{ transform:translateY(110vh) rotate(540deg); opacity:0.3; }
+  }
   body{
     margin:0;
     background:
@@ -207,6 +263,17 @@
     flex-direction:column;
     gap:12px;
   }
+  .session-divider{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:13px;
+    color:var(--sage);
+    text-align:center;
+    margin:6px 0 -2px;
+    padding-top:6px;
+    border-top:1px dashed var(--line);
+  }
   .session-card{
     border:1.5px solid var(--line);
     background:var(--tag-bg);
@@ -214,6 +281,7 @@
     padding:16px 18px;
     cursor:pointer;
     transition:all .15s ease;
+    position:relative;
   }
   .session-card:hover{border-color:var(--rose); transform:translateY(-1px);}
   .session-card.active{
@@ -262,6 +330,36 @@
     color:var(--ink-soft);
     line-height:1.5;
   }
+  .addon-cards{display:flex; flex-direction:column; gap:10px;}
+  .addon-card{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    border:1.5px solid var(--line);
+    background:var(--tag-bg);
+    border-radius:14px;
+    padding:12px 16px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .addon-card:hover{border-color:var(--rose);}
+  .addon-check{
+    margin-top:3px;
+    width:16px;
+    height:16px;
+    accent-color:var(--rose-deep);
+    flex-shrink:0;
+  }
+  .addon-text{display:flex; flex-direction:column; gap:2px;}
+  .addon-name{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:14px;
+    color:var(--ink);
+  }
+  .addon-price{color:var(--rose-deep); font-style:normal; font-weight:700;}
+  .addon-def{font-size:12px; color:var(--ink-soft); line-height:1.4;}
   .style-note{
     font-size:12.5px;
     color:var(--ink-soft);
@@ -364,6 +462,7 @@
     margin-top:30px;
   }
   .send{
+    position:relative;
     background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
     color:#fff;
     border:none;
@@ -374,8 +473,37 @@
     cursor:pointer;
     font-family:'Quicksand', sans-serif;
     box-shadow:0 8px 18px -8px rgba(224,117,155,0.7);
+    overflow:visible;
   }
   .send:hover{filter:brightness(1.06); transform:translateY(-1px);}
+  .send::before, .send::after{
+    content:'✨';
+    position:absolute;
+    font-size:14px;
+    opacity:0;
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+  }
+  .send::before{
+    top:-10px;
+    left:-6px;
+    transform:scale(0.5) rotate(-15deg);
+  }
+  .send::after{
+    bottom:-10px;
+    right:-6px;
+    transform:scale(0.5) rotate(15deg);
+  }
+  .send:hover::before{
+    opacity:1;
+    transform:scale(1.1) rotate(-15deg);
+    animation:twinkle 1.4s ease-in-out infinite;
+  }
+  .send:hover::after{
+    opacity:1;
+    transform:scale(1.1) rotate(15deg);
+    animation:twinkle 1.4s ease-in-out infinite .3s;
+  }
   .hint{font-size:12px; color:var(--ink-soft);}
   .summary{
     display:none;
@@ -555,24 +683,25 @@
 </style>
 </head>
 <body>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
 <div class="sheet">
 
   <div class="chart-header">
     <div>
       <span class="flourish">let's find your glow ♡</span>
-      <div class="brand">The Vanity <span>Chart</span></div>
+      <div class="brand"><span class="sparkle">✨</span> The Vanity <span>Chart</span> <span class="sparkle">✨</span></div>
     </div>
     <div class="chart-id">CONSULT INTAKE<br>Chart #____</div>
   </div>
   <div class="subhead">Fill this out before we meet, the more I know going in, the more glowy time we get to spend together!</div>
   <div class="intro">
-    <p>Hi, I'm Chi 🩷 I'm a practicing RN, currently pursuing my Doctor of Nursing Practice, based in the Miami, Florida metropolitan area. I've always had a love for makeup and skincare, and I bring a clinical eye to beauty, helping people navigate an overwhelming industry with real product knowledge instead of guesswork or sales pressure.</p>
+    <p>Hi, I'm Chi 🩷. I'm a DNP candidate and practicing RN, based in the Miami, Florida metropolitan area. I've always had a love for makeup and skincare, a self-taught makeup lover for over a decade. Now I bring a clinical eye to beauty, helping people navigate an overwhelming industry with real product knowledge instead of guesswork or sales pressure.</p>
     <p class="welcome-line">Welcome to The Vanity Chart, your personal makeup and skincare chart.</p>
-    <p>I offer three ways to work together, each suited to a different need:</p>
+    <p>I offer a few ways to work together, from full sessions to quick specialty add-ons, pick what fits your needs:</p>
     <p><b>Virtual Consult</b>, a video or text-based session where we talk through your skin, goals, and current routine, and I send you a personalized product list afterward. Best if you want a plan without leaving home.</p>
-    <p><b>In-Person Shopping</b>, where I meet you at Sephora, Ulta, or your preferred retailer to test products together in real time. Best if you want hands-on guidance and to walk out with everything decided.</p>
+    <p><b>In-Person Shopping/Consult</b>, where I meet you at Sephora, Ulta, or your preferred retailer to test products together in real time. Buying is optional, this is about finding what actually works for you, not a pressure to purchase.</p>
     <p><b>Declutter & Edit</b>, where we sort through what's already in your vanity, deciding what to keep, toss, or replace. Best if you already own a lot of products and just need an honest edit.</p>
-    <p>Across all three: no pressure to buy anything you don't love, no judgment on your current routine, just honest advice from someone with a clinical background who genuinely loves this stuff.</p>
+    <p>Across every session: no pressure to buy anything you don't love, no judgment on your current routine, just honest advice from someone with a clinical background who genuinely loves this stuff.</p>
   </div>
   <div class="reassure">
     <p><b>No wrong answers here.</b> This isn't a test or a critique of your current routine, it's just so I can get to know your skin, your style, and what you're hoping for. Come as you are.</p>
@@ -600,13 +729,13 @@
           <span class="session-time">30 minutes · via Zoom or text</span>
           <p class="session-def">A focused video call (or text-based, if you prefer) where we go over your skin, goals, and current routine, and I send you a personalized product list afterward.</p>
         </div>
-        <div class="session-card" data-value="In-Person Shopping: $100/hr">
+        <div class="session-card" data-value="In-Person Shopping/Consult: $100/hr">
           <div class="session-top">
-            <span class="session-name">In-Person Shopping</span>
+            <span class="session-name">In-Person Shopping/Consult</span>
             <span class="session-price">$100<span class="per">/hr</span></span>
           </div>
           <span class="session-time">Sephora, Ulta, or your preferred beauty retailer</span>
-          <p class="session-def">We meet in-store, test products together, and you leave with a finalized kit and a written how-to guide.</p>
+          <p class="session-def">We meet in-store to test products together and build your ideal routine. Buying is completely optional, either way, you'll leave with a written guide and a clear plan.</p>
         </div>
         <div class="session-card" data-value="Declutter & Edit: $75/hr">
           <div class="session-top">
@@ -616,6 +745,68 @@
           <span class="session-time">Virtual or in-home</span>
           <p class="session-def">We sort through your current vanity together, deciding what to keep, toss, or replace, and I put together a shopping list for any gaps.</p>
         </div>
+
+        <div class="session-divider">Specialty &amp; Add-On Sessions</div>
+
+        <div class="session-card" data-value="Regimen Rx (Skincare Deep Dive): $70 / 45 min">
+          <div class="session-top">
+            <span class="session-name">Regimen Rx</span>
+            <span class="session-price">$70</span>
+          </div>
+          <span class="session-time">45 minutes · virtual or in-person</span>
+          <p class="session-def">A skincare-only deep dive: ingredient audit, routine building, and clinical guidance on what your skin actually needs. No makeup, all science.</p>
+        </div>
+        <div class="session-card" data-value="Beauty Squad (Group Session): $75/person, min 4">
+          <div class="session-top">
+            <span class="session-name">Beauty Squad</span>
+            <span class="session-price">$75<span class="per">/person</span></span>
+          </div>
+          <span class="session-time">2 hours · in-person · groups of 4+</span>
+          <p class="session-def">Perfect for bachelorette parties, birthdays, or friend groups. Everyone gets individual guidance in one shared session. To make the most of our time, each guest sends me their product interests/wishlist beforehand.</p>
+        </div>
+        <div class="session-card" data-value="Quick Check-In (returning clients only): $25 / 15 min">
+          <div class="session-top">
+            <span class="session-name">Quick Check-In</span>
+            <span class="session-price">$25</span>
+          </div>
+          <span class="session-time">15 minutes · returning clients only</span>
+          <p class="session-def">A short virtual follow-up: how's that new product working? Need any tweaks to your routine?</p>
+        </div>
+        <div class="session-card" data-value="Build Your Makeup Kit: $130 / 90 min">
+          <div class="session-top">
+            <span class="session-name">Build Your Makeup Kit</span>
+            <span class="session-price">$130</span>
+          </div>
+          <span class="session-time">90 minutes · in-person</span>
+          <p class="session-def">A from-scratch, beginner-friendly kit build, perfect if you're starting fresh or don't know where to begin.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Optional add-ons</label>
+      <p class="style-note">Tack these onto your main session above, no need to book them separately.</p>
+      <div class="addon-cards" id="addonType">
+        <label class="addon-card">
+          <input type="checkbox" class="addon-check" data-label="Travel Kit Builder (+$30, 20 min)">
+          <div class="addon-text">
+            <span class="addon-name">Travel Kit Builder <span class="addon-price">+$30</span></span>
+            <span class="addon-def">Build a curated, travel-size version of your routine before a trip.</span>
+          </div>
+        </label>
+        <label class="addon-card">
+          <input type="checkbox" class="addon-check" data-label="Shade Match (+$35, 20 min, in-person only)">
+          <div class="addon-text">
+            <span class="addon-name">Shade Match <span class="addon-price">+$35</span></span>
+            <span class="addon-def">Precise foundation and concealer matching while we're already together in-store.</span>
+          </div>
+        </label>
+        <label class="addon-card">
+          <input type="checkbox" class="addon-check" data-label="SPF Check (+$20, 10 min)">
+          <div class="addon-text">
+            <span class="addon-name">SPF Check <span class="addon-price">+$20</span></span>
+            <span class="addon-def">A clinical look at your current sunscreen, coverage level, expiration, and correct application, an RN-backed check most beauty consultants can't offer.</span>
+          </div>
+        </label>
       </div>
     </div>
     <p class="nurse-blurb">To my fellow nursing gals and guys 🩷 you work so hard taking care of everyone else, so here's a little something back from me to you.</p>
@@ -644,6 +835,17 @@
 
   <div class="section" data-tab="Skin Profile">
     <h2>Skin profile</h2>
+    <div class="row">
+      <label>Age range</label>
+      <div class="choices" id="ageRange">
+        <div class="chip">Under 18</div>
+        <div class="chip">18-24</div>
+        <div class="chip">25-34</div>
+        <div class="chip">35-44</div>
+        <div class="chip">45-54</div>
+        <div class="chip">55+</div>
+      </div>
+    </div>
     <div class="row">
       <label>Skin type</label>
       <div class="choices" id="skinType">
@@ -806,6 +1008,10 @@
         <button type="button" class="map-btn" onclick="openMap()">📍 View on Maps</button>
       </div>
     </div>
+    <div class="row two-col">
+      <div><label>Emergency contact name</label><input type="text" id="emergencyName" placeholder="just in case"></div>
+      <div><label>Emergency contact phone</label><input type="text" id="emergencyPhone"></div>
+    </div>
     <div class="row">
       <label>Anything else I should know?</label>
       <textarea id="notes"></textarea>
@@ -820,7 +1026,7 @@
       <li><b>No-shows:</b> If you don't show up or reach out at all, the full session fee applies.</li>
       <li><b>Running late:</b> Please give me a heads-up if you're running behind. Sessions may need to be shortened or rescheduled to respect the time of clients after you.</li>
       <li><b>Patch testing:</b> I always recommend patch-testing any new product on a small area of skin 24-48 hours before full use. I'm not liable for allergic reactions to recommended products, everyone's skin is different.</li>
-      <li><b>Payment:</b> I accept Venmo, Zelle, Cash App, and card.</li>
+      <li><b>Payment:</b> I accept Venmo, Zelle, Cash App, PayPal, and card.</li>
       <li><b>Service area:</b> I'm based in the Miami, Florida metropolitan area. In-person sessions are available within that area; let's chat if you're outside it.</li>
       <li><b>Age policy:</b> Clients must be 18 or older, or accompanied by a parent/guardian if under 18.</li>
     </ul>
@@ -862,10 +1068,21 @@
   });
 
   document.querySelectorAll('.session-card').forEach(card => {
+    const check = document.createElement('span');
+    check.className = 'session-check';
+    check.textContent = '✓';
+    card.appendChild(check);
     card.addEventListener('click', () => {
       document.querySelectorAll('.session-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
     });
+  });
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    document.getElementById('progressFill').style.width = Math.min(pct, 100) + '%';
   });
 
   function getActive(id){
@@ -874,6 +1091,10 @@
   function getSelectedSession(){
     const el = document.querySelector('#sessionType .session-card.active');
     return el ? el.dataset.value : 'N/A';
+  }
+  function getSelectedAddons(){
+    const checked = Array.from(document.querySelectorAll('.addon-check:checked')).map(c => c.dataset.label);
+    return checked.length ? checked.join(', ') : 'None';
   }
   function getVal(id){
     return document.getElementById(id).value.trim() || 'N/A';
@@ -896,6 +1117,22 @@
     window.open(CALENDLY_LINK, '_blank');
   }
 
+  function fireConfetti(){
+    const colors = ['#F3A9C0', '#E0759B', '#C9A3D6', '#F5E9F7'];
+    for(let i = 0; i < 40; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      const size = 6 + Math.random() * 6;
+      piece.style.width = size + 'px';
+      piece.style.height = size + 'px';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      document.body.appendChild(piece);
+      setTimeout(() => piece.remove(), 3600);
+    }
+  }
+
   function buildSummary(){
     const text =
 `CONSULT INTAKE: ${getVal('name')}
@@ -905,9 +1142,11 @@ Nurse discount (10%, bring ID): ${document.getElementById('nurseDiscount').check
 Nursing student discount (20%, bring ID): ${document.getElementById('nursingStudentDiscount').checked ? 'Yes' : 'No'}
 Contact: ${getVal('contact')}
 Session: ${getSelectedSession()}
+Add-ons: ${getSelectedAddons()}
 Budget: ${getActive('budget')}
 
 SKIN PROFILE
+Age range: ${getActive('ageRange')}
 Type: ${getActive('skinType')}
 Concerns: ${getActive('concerns')}
 Allergies/avoid: ${getVal('allergies')}
@@ -926,6 +1165,7 @@ Tester comfort: ${getActive('testerComfort')}
 Accessibility needs: ${getVal('accessibility')}
 Availability: ${getVal('availability')}
 Preferred location: ${getVal('location')}
+Emergency contact: ${getVal('emergencyName')} (${getVal('emergencyPhone')})
 Notes: ${getVal('notes')}`;
 
     const box = document.getElementById('summaryBox');
@@ -934,6 +1174,7 @@ Notes: ${getVal('notes')}`;
     document.getElementById('copyBtn').style.display = 'inline-block';
     box.scrollIntoView({behavior:'smooth', block:'nearest'});
     submitToFormspree(text);
+    fireConfetti();
   }
 
   // Replace with your real Formspree endpoint, e.g. https://formspree.io/f/abcdwxyz
