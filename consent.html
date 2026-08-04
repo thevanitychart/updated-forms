@@ -151,6 +151,7 @@
   .sig-note{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
   .actions{display:flex; justify-content:space-between; align-items:center; margin-top:26px;}
   .send{
+    position:relative;
     background:linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
     color:#fff;
     border:none;
@@ -161,9 +162,34 @@
     cursor:pointer;
     font-family:'Quicksand', sans-serif;
     box-shadow:0 8px 18px -8px rgba(224,117,155,0.7);
+    overflow:visible;
   }
   .send:hover{filter:brightness(1.06); transform:translateY(-1px);}
   .send:disabled{opacity:0.45; cursor:not-allowed; box-shadow:none;}
+  .send::before, .send::after{
+    content:'✨';
+    position:absolute;
+    font-size:14px;
+    opacity:0;
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+  }
+  .send::before{ top:-10px; left:-6px; transform:scale(0.5) rotate(-15deg); }
+  .send::after{ bottom:-10px; right:-6px; transform:scale(0.5) rotate(15deg); }
+  .send:hover::before{
+    opacity:1;
+    transform:scale(1.1) rotate(-15deg);
+    animation:sendSparkle 1.4s ease-in-out infinite;
+  }
+  .send:hover::after{
+    opacity:1;
+    transform:scale(1.1) rotate(15deg);
+    animation:sendSparkle 1.4s ease-in-out infinite .3s;
+  }
+  @keyframes sendSparkle{
+    0%, 100%{ opacity:.35; transform:scale(0.85) rotate(-15deg); }
+    50%{ opacity:1; transform:scale(1.15) rotate(-15deg); }
+  }
   .hint{font-size:12px; color:var(--ink-soft);}
   .summary{
     display:none;
@@ -312,7 +338,8 @@
     <div class="contact-links">
       <span>📧 thevanitychart@gmail.com</span>
       <span>📱 786-539-5365</span>
-      <span>📸 @thevanitychart</span>
+      <span>📸 IG @thevanitychart</span>
+      <span>🎵 TikTok @the.vanity.chart</span>
     </div>
   </div>
 

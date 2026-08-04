@@ -64,6 +64,7 @@
     margin:2px 0 32px;
   }
   .link-btn{
+    position:relative;
     display:block;
     background:#fff;
     border:1.5px solid var(--line);
@@ -76,8 +77,33 @@
     font-size:14.5px;
     box-shadow:0 6px 18px -12px rgba(224,117,155,0.3);
     transition:all .15s ease;
+    overflow:visible;
   }
   .link-btn:hover{border-color:var(--rose); transform:translateY(-1px);}
+  .link-btn::before, .link-btn::after{
+    content:'✨';
+    position:absolute;
+    font-size:14px;
+    opacity:0;
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+  }
+  .link-btn::before{ top:-9px; left:8px; transform:scale(0.5) rotate(-15deg); }
+  .link-btn::after{ bottom:-9px; right:8px; transform:scale(0.5) rotate(15deg); }
+  .link-btn:hover::before{
+    opacity:1;
+    transform:scale(1.05) rotate(-15deg);
+    animation:linkSparkle 1.4s ease-in-out infinite;
+  }
+  .link-btn:hover::after{
+    opacity:1;
+    transform:scale(1.05) rotate(15deg);
+    animation:linkSparkle 1.4s ease-in-out infinite .3s;
+  }
+  @keyframes linkSparkle{
+    0%, 100%{ opacity:.4; transform:scale(0.85) rotate(-15deg); }
+    50%{ opacity:1; transform:scale(1.15) rotate(-15deg); }
+  }
   .link-btn .sub{
     display:block;
     font-weight:500;
@@ -94,7 +120,8 @@
   .contact-row{
     display:flex;
     justify-content:center;
-    gap:20px;
+    flex-wrap:wrap;
+    gap:14px 20px;
     margin-top:28px;
     font-size:12.5px;
     color:var(--ink-soft);
@@ -128,8 +155,10 @@
   </a>
 
   <div class="contact-row">
+    <span>📧 thevanitychart@gmail.com</span>
     <span>📱 786-539-5365</span>
-    <span>📸 @thevanitychart</span>
+    <span>📸 IG @thevanitychart</span>
+    <span>🎵 TikTok @the.vanity.chart</span>
   </div>
 </div>
 </body>
