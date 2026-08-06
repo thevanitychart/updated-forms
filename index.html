@@ -324,11 +324,20 @@
     letter-spacing:0.03em;
   }
   .session-def{
-    margin:0;
+    margin:0 0 8px;
     font-size:13px;
     font-weight:500;
     color:var(--ink-soft);
     line-height:1.5;
+  }
+  .session-deposit{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    color:var(--rose-deep);
+    background:var(--tag-bg);
+    border-radius:10px;
+    padding:4px 10px;
   }
   .addon-cards{display:flex; flex-direction:column; gap:10px;}
   .addon-card{
@@ -721,50 +730,55 @@
     <div class="row">
       <label>Session type</label>
       <div class="session-cards" id="sessionType">
-        <div class="session-card" data-value="Virtual Consult: $50 / 30 min">
+        <div class="session-card" data-value="Virtual Consult: $50 / 30 min ($15 deposit due at booking)">
           <div class="session-top">
             <span class="session-name">Virtual Consult</span>
             <span class="session-price">$50</span>
           </div>
           <span class="session-time">30 minutes · via Zoom or text</span>
           <p class="session-def">A focused video call (or text-based, if you prefer) where we go over your skin, goals, and current routine, and I send you a personalized product list afterward.</p>
+          <span class="session-deposit">🩷 $15 deposit due at booking</span>
         </div>
-        <div class="session-card" data-value="In-Person Shopping/Consult: $100/hr">
+        <div class="session-card" data-value="In-Person Shopping/Consult: $100/hr ($25 deposit due at booking)">
           <div class="session-top">
             <span class="session-name">In-Person Shopping/Consult</span>
             <span class="session-price">$100<span class="per">/hr</span></span>
           </div>
           <span class="session-time">Sephora, Ulta, or your preferred beauty retailer</span>
           <p class="session-def">We meet in-store to test products together and build your ideal routine. Buying is completely optional, either way, you'll leave with a written guide and a clear plan.</p>
+          <span class="session-deposit">🩷 $25 deposit due at booking</span>
         </div>
-        <div class="session-card" data-value="Declutter & Edit: $75/hr">
+        <div class="session-card" data-value="Declutter & Edit: $75/hr ($20 deposit due at booking)">
           <div class="session-top">
             <span class="session-name">Declutter &amp; Edit</span>
             <span class="session-price">$75<span class="per">/hr</span></span>
           </div>
           <span class="session-time">Virtual or in-home</span>
           <p class="session-def">We sort through your current vanity together, deciding what to keep, toss, or replace, and I put together a shopping list for any gaps.</p>
+          <span class="session-deposit">🩷 $20 deposit due at booking</span>
         </div>
 
         <div class="session-divider">Specialty &amp; Add-On Sessions</div>
 
-        <div class="session-card" data-value="Regimen Rx (Skincare Deep Dive): $70 / 45 min">
+        <div class="session-card" data-value="Regimen Rx (Skincare Deep Dive): $70 / 45 min ($20 deposit due at booking)">
           <div class="session-top">
             <span class="session-name">Regimen Rx</span>
             <span class="session-price">$70</span>
           </div>
           <span class="session-time">45 minutes · virtual or in-person</span>
           <p class="session-def">A skincare-only deep dive: ingredient audit, routine building, and clinical guidance on what your skin actually needs. No makeup, all science.</p>
+          <span class="session-deposit">🩷 $20 deposit due at booking</span>
         </div>
-        <div class="session-card" data-value="Beauty Squad (Group Session): $75/person, min 4">
+        <div class="session-card" data-value="Beauty Squad (Group Session): $75/person, min 4 ($20/person deposit due at booking)">
           <div class="session-top">
             <span class="session-name">Beauty Squad</span>
             <span class="session-price">$75<span class="per">/person</span></span>
           </div>
           <span class="session-time">2 hours · in-person · groups of 4+</span>
           <p class="session-def">Perfect for bachelorette parties, birthdays, or friend groups. Everyone gets individual guidance in one shared session. To make the most of our time, each guest sends me their product interests/wishlist beforehand.</p>
+          <span class="session-deposit">🩷 $20/person deposit due at booking</span>
         </div>
-        <div class="session-card" data-value="Quick Check-In (returning clients only): $25 / 15 min">
+        <div class="session-card" data-value="Quick Check-In (returning clients only): $25 / 15 min (no deposit required)">
           <div class="session-top">
             <span class="session-name">Quick Check-In</span>
             <span class="session-price">$25</span>
@@ -772,13 +786,14 @@
           <span class="session-time">15 minutes · returning clients only</span>
           <p class="session-def">A short virtual follow-up: how's that new product working? Need any tweaks to your routine?</p>
         </div>
-        <div class="session-card" data-value="Build Your Makeup Kit: $130 / 90 min">
+        <div class="session-card" data-value="Build Your Makeup Kit: $130 / 90 min ($35 deposit due at booking)">
           <div class="session-top">
             <span class="session-name">Build Your Makeup Kit</span>
             <span class="session-price">$130</span>
           </div>
           <span class="session-time">90 minutes · in-person</span>
           <p class="session-def">A from-scratch, beginner-friendly kit build, perfect if you're starting fresh or don't know where to begin.</p>
+          <span class="session-deposit">🩷 $35 deposit due at booking</span>
         </div>
       </div>
     </div>
@@ -1021,8 +1036,9 @@
   <div class="policies">
     <h3>A few housekeeping notes 🩷</h3>
     <ul>
-      <li><b>Rescheduling:</b> Life happens! Just give me at least 24 hours' notice and we'll find a new time, no fee, no worries.</li>
-      <li><b>Late cancellations:</b> Canceling with less than 24 hours' notice may include a 50% cancellation fee.</li>
+      <li><b>Deposit:</b> A 25% non-refundable deposit is required to confirm your booking (see amount on your selected session above). You'll be prompted to pay it via PayPal right at checkout when you book your time slot, and it's applied toward your total session cost. Quick Check-Ins don't require a deposit.</li>
+      <li><b>Rescheduling:</b> Life happens! Just give me at least 24 hours' notice and we'll find a new time, no fee, no worries. Your deposit carries over to the new date.</li>
+      <li><b>Late cancellations:</b> Canceling with less than 24 hours' notice may include a 50% cancellation fee, on top of your deposit.</li>
       <li><b>No-shows:</b> If you don't show up or reach out at all, the full session fee applies.</li>
       <li><b>Running late:</b> Please give me a heads-up if you're running behind. Sessions may need to be shortened or rescheduled to respect the time of clients after you.</li>
       <li><b>Patch testing:</b> I always recommend patch-testing any new product on a small area of skin 24-48 hours before full use. I'm not liable for allergic reactions to recommended products, everyone's skin is different.</li>
@@ -1033,7 +1049,7 @@
   </div>
 
   <div class="booking-cta">
-    <p>Ready to lock in a time? Fill this out first, then grab a spot on my calendar.</p>
+    <p>Ready to lock in a time? Fill this out first, then grab a spot on my calendar. You'll be prompted to pay your deposit (25% of your session price) via PayPal right at checkout to confirm the appointment.</p>
     <button type="button" class="book-btn" onclick="openCalendly()">📅 Book your session</button>
   </div>
 
